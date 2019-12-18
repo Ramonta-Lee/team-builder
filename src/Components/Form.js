@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Form = props => {
-  const [member, setMember] = useState({
+  const initialState = {
     name: "",
     email: "",
     role: ""
-  });
+  };
+  const [member, setMember] = useState(initialState);
 
   const handleFormChange = event => {
     setMember({
@@ -15,11 +16,25 @@ const Form = props => {
     console.log(event.target.name);
   };
 
+  // const resetForm = setMember.bind(this, initialState)
+  const resetForm = () => {
+    setMember(initialState);
+  };
+
   const SubmitForm = event => {
     event.preventDefault();
     props.addNewMember(member);
-    setMember({ name: "", email: "", role: "" });
+    //this setMember resets the member back to initial state
+    // setMember({ name: "", email: "", role: "" });
+    resetForm();
   };
+
+  // useEffect((props) => {
+
+  //   return () => {
+  //     cleanup
+  //   };
+  // }, [input])
 
   return (
     <div className="form-wrapper">
